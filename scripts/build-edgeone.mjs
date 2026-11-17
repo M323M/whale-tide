@@ -18,9 +18,12 @@ function copyDir(from, to) {
 
 if (fs.existsSync(out)) fs.rmSync(out, { recursive: true, force: true });
 
-/* 静态：app.html 改名 index.html，assets/ 与 manifest 原样 */
+/* 静态：app.html 改名 index.html，assets/ 与 manifest 原样
+   EdgeOne 静态托管不会执行注入逻辑，这里直接把密码占位符清成空串（开放模式） */
 fs.mkdirSync(out, { recursive: true });
-fs.copyFileSync(path.join(pub, 'app.html'), path.join(out, 'index.html'));
+const entry = fs.readFileSync(path.join(pub, 'app.html'), 'utf8');
+const entryHtml = entry.split('{{PASSWORD}}').join('');
+fs.writeFileSync(path.join(out, 'index.html'), entryHtml, 'utf8');
 fs.copyFileSync(path.join(pub, 'manifest.json'), path.join(out, 'manifest.json'));
 copyDir(path.join(pub, 'assets'), path.join(out, 'assets'));
 
