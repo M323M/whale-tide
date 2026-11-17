@@ -416,10 +416,18 @@
                     return rec;
                 }
                 const ctrl = new AbortController();
-                const timer = setTimeout(() => ctrl.abort(), 4500);
+                const timer = setTimeout(() => ctrl.abort(), 3000);
                 const res = await fetch(Net.proxy(ep.url), { signal: ctrl.signal, cache: 'no-store' });
                 if (!res.ok) throw new Error('HTTP ' + res.status);
-                await res.arrayBuffer();
+
+                /* 只读第一个 chunk 就取消：测的是「起播首字节」，不是整份播放列表 */
+                if (res.body && typeof res.body.getReader === 'function') {
+                    const reader = res.body.getReader();
+                    await reader.read();
+                    try { reader.cancel(); } catch (e) { /* noop */ }
+                } else {
+                    await res.arrayBuffer();
+                }
                 clearTimeout(timer);
                 const rec = { ms: Math.round(performance.now() - started), ok: true, t: Date.now(), detail: d };
                 speedCache.set(key, rec);
@@ -433,8 +441,8 @@
 
         speedClass(ms) {
             if (ms == null) return 'bad';
-            if (ms < 350) return 'good';
-            if (ms < 900) return 'mid';
+            if (ms < 800) return 'good';
+            if (ms < 2000) return 'mid';
             return 'bad';
         },
 
