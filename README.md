@@ -255,3 +255,23 @@ node preview-whale.mjs        # 在 whale-tv 目录运行，本地密码 whale
 
 localStorage 跟着浏览器走：换浏览器、清站点数据、无痕模式关窗，都会丢。导出一份 json 就是最稳的备份。
 
+
+## 七、CI / 自动部署（可选）
+
+自动部署的 workflow 模板放在 `docs/ci/deploy.yml`（不是 `.github/workflows/`，因为推送用的 OAuth token 没带 `workflow` scope）。
+
+要启用：
+
+```bash
+gh auth refresh -h github.com -s workflow      # 补上 workflow 权限
+mkdir -p .github/workflows && git mv docs/ci/deploy.yml .github/workflows/deploy.yml
+git commit -m 'ci: 启用 Cloudflare Pages 自动部署' && git push
+```
+
+然后在仓库 Settings → Secrets and variables → Actions 里加：
+
+| Secret | 说明 |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | Cloudflare Dashboard → My Profile → API Tokens（Edit Cloudflare Workers 模板） |
+| `CLOUDFLARE_ACCOUNT_ID` | Dashboard 右侧栏 / `wrangler whoami` |
+
