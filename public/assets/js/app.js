@@ -1560,6 +1560,7 @@
 
     function init() {
         bindChrome();
+        if (Auth.disabled()) { boot(); return; }
         if (!Auth.ready()) { showGate('nopass'); return; }
         if (!Auth.verified()) { showGate('pass'); return; }
         boot();

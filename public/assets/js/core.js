@@ -94,6 +94,10 @@
             const h = this.getSync();
             return typeof h === 'string' && h.length === 64 && !/^0+$/.test(h);
         },
+        /* 没配密码 = 开放模式，直接进站 */
+        disabled() {
+            return !this.getSync();
+        },
         async digest(text) {
             if (window.crypto && crypto.subtle) {
                 const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
@@ -103,6 +107,7 @@
             throw new Error('no sha256');
         },
         verified() {
+            if (this.disabled()) return true;
             const stored = Store.get('wt_gate', null);
             return !!(stored && stored.hash === this.getSync() && stored.ok);
         },
