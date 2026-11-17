@@ -445,6 +445,34 @@
     }
 
     async function openDetail(item) {
+        if (!item) return;
+
+        /* 豆瓣卡片只有标题/海报，没有片源 id —— 先按标题搜一次 */
+        if (item.douban || !item.site) {
+            const q = item.name || '';
+            if (!q) return;
+            toast('正在找「' + q + '」…');
+            try {
+                const list = await Data.search(q, state.sites);
+                const merged = mergeByTitle(list || []);
+                if (!merged.length) {
+                    toast('片源里没搜到「' + q + '」，换个名字试试', 'error');
+                    Router.go('#/search?q=' + encodeURIComponent(q));
+                    return;
+                }
+                const want = normTitle(q);
+                const exact = merged.find(m => normTitle(m.name) === want);
+                if (exact) return openDetail(exact);
+                /* 没有精确匹配就跳到搜索页，让用户自己挑，绝不乱开一部 */
+                Router.go('#/search?q=' + encodeURIComponent(q));
+                return;
+            } catch (e) {
+                toast('搜索超时了，去搜索页再试一次', 'error');
+                Router.go('#/search?q=' + encodeURIComponent(q));
+                return;
+            }
+        }
+
         const sheet = $('#sheet');
         const layer = $('#sheetLayer');
         layer.hidden = false;
