@@ -1,0 +1,23 @@
+{
+  "name": "鲸汐 WhaleTide",
+  "short_name": "鲸汐",
+  "description": "鲸鱼娘替你在深海里捞片子，全网影视免费搜索与在线播放",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#050e1a",
+  "theme_color": "#050e1a",
+  "icons": [
+    {
+      "src": "assets/img/favicon-64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

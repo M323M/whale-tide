@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>鲸汐 WhaleTide · 深海里捞好片</title>
+<meta name="description" content="鲸汐 WhaleTide —— 鲸鱼娘「汐」替你在深海里捞片子，全网影视免费搜索与在线播放。">
+<meta name="theme-color" content="#050e1a">
+<meta property="og:title" content="鲸汐 WhaleTide">
+<meta property="og:description" content="深海里捞好片 · 全部免费看">
+<meta property="og:image" content="assets/img/girl.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="preload" href="assets/img/girl.png" as="image">
+<link rel="preload" href="assets/img/chibi.png" as="image">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body data-whale-style="mature">
+
+<!-- 背景层 -->
+<div class="sea" aria-hidden="true">
+  <div class="sea-glow"></div>
+  <div class="sea-rays"></div>
+  <div class="sea-bubbles"></div>
+  <div class="sea-waves"></div>
+  <div class="sea-dust"></div>
+  <div class="sea-grid" aria-hidden="true"></div>
+</div>
+<div class="petals" id="petals" aria-hidden="true"></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- 顶栏 -->
+<header class="topbar" id="topbar">
+  <a class="brand" href="#/" aria-label="鲸汐 WhaleTide 首页">
+    <img class="brand-avatar" src="assets/img/avatar.png" alt="" aria-hidden="true">
+    <span class="brand-text">
+      <strong>鲸汐</strong>
+      <em>WHALE TIDE</em>
+    </span>
+  </a>
+
+  <nav class="nav" id="mainNav" aria-label="主导航">
+    <a href="#/" data-nav="discover">发现</a>
+    <a href="#/search" data-nav="search">搜索</a>
+    <a href="#/history" data-nav="history">片单</a>
+  </nav>
+
+  <div class="topbar-actions">
+    <button class="mode-switch" id="modeSwitch" type="button" aria-label="切换影视 / 动漫">
+      <span class="mode-ico" aria-hidden="true"></span>
+      <span class="mode-text">影视</span>
+    </button>
+    <div class="style-switch" role="group" aria-label="切换鲸鱼娘形象">
+      <button type="button" data-style-btn="mature" title="原版立绘">原版</button>
+      <button type="button" data-style-btn="chibi" title="Q 版立绘">Q 版</button>
+    </div>
+    <button class="icon-btn" id="settingsBtn" type="button" aria-label="设置" title="设置"></button>
+  </div>
+</header>
+
+<main id="view" class="view" aria-live="polite"></main>
+
+<footer class="site-footer">
+  <div class="footer-inner footer-min">
+    <a class="footer-brand" href="#/">
+      <img src="assets/img/avatar.png" alt="" aria-hidden="true">
+      <strong>鲸汐 WhaleTide</strong>
+    </a>
+    <span class="footer-min-text">深海里捞好片</span>
+  </div>
+</footer>
+
+<!-- 移动端底部导航 -->
+<nav class="tabbar" aria-label="底部导航">
+  <a href="#/" data-nav="discover"><span class="tab-ico" data-ico="compass"></span>发现</a>
+  <a href="#/search" data-nav="search"><span class="tab-ico" data-ico="search"></span>搜索</a>
+  <a href="#/history" data-nav="history"><span class="tab-ico" data-ico="bookmark"></span>片单</a>
+  <a href="#/settings" data-nav="settings"><span class="tab-ico" data-ico="cog"></span>设置</a>
+</nav>
+
+<!-- 浮层：详情 / 设置 / 播放 / 密码 / 声明 -->
+<div class="layer" id="sheetLayer" hidden>
+  <div class="layer-backdrop" data-close="sheet"></div>
+  <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="详情"></section>
+</div>
+
+<div class="layer player-layer" id="playerLayer" hidden>
+  <section class="cinema" id="cinema" role="dialog" aria-modal="true" aria-label="播放器"></section>
+</div>
+
+<div class="layer gate-layer" id="gateLayer" hidden>
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="访问验证"></div>
+</div>
+
+<div class="toast-wrap" id="toastWrap" aria-live="assertive"></div>
+
+<script src="assets/vendor/sha256.min.js"></script>
+<script>
+  window._jsSha256 = window.sha256;
+  window.__ENV__ = window.__ENV__ || {};
+  window.__ENV__.PASSWORD = "{{PASSWORD}}";
+</script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/vendor/hls.min.js" defer></script>
+<script src="assets/vendor/artplayer.min.js" defer></script>
+<script src="assets/js/player.js" defer></script>
+</body>
+</html>
