@@ -1538,6 +1538,23 @@
     }
 
     /* ---------- 启动 ---------- */
+    /* ---------- 设置抽屉 ---------- */
+    function openSettings() {
+        const layer = $('#settingsLayer');
+        const body = $('#settingsBody');
+        if (!layer || !body) return;
+        renderSettings({}, body);
+        layer.hidden = false;
+        document.body.classList.add('no-scroll');
+    }
+
+    function closeSettings() {
+        const layer = $('#settingsLayer');
+        if (!layer) return;
+        layer.hidden = true;
+        document.body.classList.remove('no-scroll');
+    }
+
     function bindChrome() {
         /* 顶栏滚动状态 */
         const topbar = $('#topbar');
@@ -1556,7 +1573,10 @@
             setStyle(b.dataset.styleBtn);
         }));
         $('#settingsBtn').innerHTML = ICONS.cog;
-        $('#settingsBtn').addEventListener('click', () => Router.go('#/settings'));
+        $('#settingsBtn').addEventListener('click', openSettings);
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('[data-close-settings]')) closeSettings();
+        });
 
         /* 移动端 tab 图标 */
         $$('[data-ico]').forEach(node => {
@@ -1575,7 +1595,11 @@
         Router.on('/', renderDiscover);
         Router.on('/search', renderSearch);
         Router.on('/history', renderHistory);
-        Router.on('/settings', renderSettings);
+        Router.on('/settings', (query, view) => {
+        /* 老链接 #/settings 也走抽屉：先回首页再打开 */
+        if (Router.current && Router.current.name === 'settings') Router.go('#/');
+        openSettings();
+    });
     }
 
     let booted = false;
