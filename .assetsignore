@@ -1,8 +1,12 @@
-# Cloudflare Pages 部署时排除（.assetsignore 只影响上传的静态产物）
+# 部署时排除：源码 / 文档 / 脚本都不作为静态资源上传
 .git
 .gitignore
 .gitattributes
 .github
+_worker.js
+wrangler.jsonc
+functions
+lib
 docs
 preview-whale.mjs
 push-to-github.ps1
