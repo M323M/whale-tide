@@ -257,7 +257,7 @@ http.createServer((req, res) => {
     return;
   }
 
-  if (p === '/') p = '/index.html';
+  if (p === '/') p = '/app.html';
   const file = path.join(root, p);
   if (!file.startsWith(root)) { res.writeHead(403).end('forbidden'); return; }
   fs.readFile(file, (err, buf) => {
