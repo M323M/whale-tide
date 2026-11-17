@@ -17,3 +17,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# CloudBase：静态文件由 scripts/sync-cloudbase.mjs 同步，不进仓库
+cloudbase/functions/app/public/
+

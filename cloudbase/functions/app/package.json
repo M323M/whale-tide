@@ -1,0 +1,10 @@
+{
+  "name": "whale-tide-app",
+  "version": "1.0.0",
+  "description": "鲸汐 WhaleTide · CloudBase 单函数全栈（静态 + 代理）",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {}
+}
