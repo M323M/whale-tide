@@ -1,0 +1,10 @@
+# Cloudflare Pages 部署时排除（.assetsignore 只影响上传的静态产物）
+.git
+.gitignore
+.gitattributes
+.github
+docs
+preview-whale.mjs
+push-to-github.ps1
+README.md
+LICENSE
