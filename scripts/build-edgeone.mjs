@@ -31,15 +31,7 @@ copyDir(path.join(pub, 'assets'), path.join(out, 'assets'));
 const fnSrc = path.join(root, 'edgeone', 'edge-functions');
 copyDir(fnSrc, path.join(out, 'edge-functions'));
 
-/* 站点配置 */
-fs.writeFileSync(path.join(out, 'edgeone.json'), JSON.stringify({
-    name: 'whale-tide',
-    'cache-control': {
-        '/*.js': 'public, max-age=86400',
-        '/*.css': 'public, max-age=86400',
-        '/': 'no-store'
-    }
-}, null, 2));
+/* 站点配置由仓库根的 edgeone.json 统一管理，这里不再重复生成 */
 
 let files = 0, bytes = 0;
 (function walk(dir) {
