@@ -3,7 +3,7 @@
  *
  * 路由：
  *   /proxy/*  → 代理（lib/proxy-core.js）
- *   其它      → env.ASSETS 静态资源；HTML 会注入 PASSWORD 的 sha256
+ *   其它      → env.ASSETS 静态资源（public/ 目录）；HTML 注入 PASSWORD 的 sha256
  */
 
 import { onRequest as handleProxy } from './lib/proxy-core.js';
@@ -18,10 +18,17 @@ export default {
         }
 
         const asset = await env.ASSETS.fetch(request);
-        const contentType = asset.headers.get('content-type') || '';
 
-        if (contentType.includes('text/html')) {
-            return injectPassword(asset, env);
+        const contentType = asset.headers.get('content-type') || '';
+        const looksHtml =
+            contentType.includes('text/html') ||
+            url.pathname === '/' ||
+            url.pathname.endsWith('.html') ||
+            url.pathname.endsWith('/');
+
+        if (looksHtml) {
+            const patched = await injectPassword(asset, env);
+            return patched;
         }
 
         return asset;

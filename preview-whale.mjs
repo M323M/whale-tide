@@ -6,7 +6,7 @@ import crypto from 'node:crypto';
 // 妞村憡鐫?WhaleTide 閺堫剙婀存０鍕潔
 // 閻劍纭堕敍姘躬 whale-tv 閻╊喖缍嶉幍褑顢? node ..\whale-build\_whale-src\preview-whale.mjs
 // 閺€顖涘瘮閿?mock=1 閸嬪洦鏆熼幑?/ ?style=chibi / ?autoopen=1 閼奉亜濮╅幍鎾崇磻缁楊兛绔村鐘插幢閻?
-const root = process.cwd();
+const root = process.env.WT_ROOT || (process.cwd() + '/public');
 const port = Number(process.env.PORT || 8231);
 const HASH = crypto.createHash('sha256').update('whale').digest('hex');
 
