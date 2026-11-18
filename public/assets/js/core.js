@@ -318,6 +318,24 @@
             return flat;
         },
 
+        /* 最新更新：不带分类，直接拉各源第一页 */
+        async latestList(keys, page = 1) {
+            const sites = (keys && keys.length ? keys : Object.keys(WT.SITES)).filter(k => siteOf(k));
+            const buckets = await Promise.all(sites.map(async key => {
+                try {
+                    const site = siteOf(key);
+                    const data = await Net.json(site.api + '?ac=videolist&pg=' + page, { timeout: 6000 });
+                    const list = Array.isArray(data && data.list) ? data.list : [];
+                    return list.map(item => mapVod(item, key)).filter(x => x.id && x.name);
+                } catch (e) {
+                    return [];
+                }
+            }));
+            const flat = [];
+            buckets.forEach(b => flat.push(...b));
+            return flat;
+        },
+
         /* 按分类拉列表：names 是分类名关键词数组，匹配源自己的分类表 */
         async categoryList(keys, names, page = 1) {
             const sites = (keys && keys.length ? keys : Object.keys(WT.SITES)).filter(k => siteOf(k));

@@ -1025,7 +1025,8 @@
             : `<span class="chip-label">试试</span>` + fallbackWords.map(w => `<button class="chip" data-hot2="${esc(w)}">${esc(w)}</button>`).join('');
 
         const catGroups = WT.CATEGORY_GROUPS[state.mode] || [];
-        const catChips = catGroups.map(c => `<button class="chip" data-cat="${esc(c.name)}">${esc(c.name)}</button>`).join('');
+        const catChips = `<button class="chip is-active" data-cat="最新更新">${ICONS.trend}最新更新</button>` +
+            catGroups.map(c => `<button class="chip" data-cat="${esc(c.name)}">${esc(c.name)}</button>`).join('');
 
         view.innerHTML = `
         <section class="section" style="margin-top:22px">
@@ -1065,13 +1066,16 @@
 
         /* 按分类浏览 */
         async function loadCategory(name, btn, page = 1) {
-            const group = catGroups.find(c => c.name === name);
-            if (!group) return;
+            const isLatest = name === '最新更新';
+            const group = isLatest ? null : catGroups.find(c => c.name === name);
+            if (!isLatest && !group) return;
             const section = $('#searchResultSection');
             $$('[data-cat]').forEach(b => b.classList.toggle('is-active', b === btn));
             section.innerHTML = skeletonGrid(12);
             try {
-                const list = await Data.categoryList(state.sites, group.match, page);
+                const list = isLatest
+                    ? await Data.latestList(state.sites, page)
+                    : await Data.categoryList(state.sites, group.match, page);
                 if (!list.length) {
                     section.innerHTML = emptyState('「' + name + '」没拉到东西', '你启用的源里可能没有这个分类，去设置（右上齿轮）多勾几个源。');
                     return;
@@ -1088,13 +1092,18 @@
                 const more = section.querySelector('[data-cat-more]');
                 if (more) more.addEventListener('click', () => loadCategory(name, btn, page >= 5 ? 1 : page + 1));
             } catch (e) {
-                section.innerHTML = emptyState('分类没拉上来', '接口超时了，再点一次试试。');
+                section.innerHTML = emptyState('列表没拉上来', '接口超时了，再点一次试试。');
             }
         }
 
         $$('[data-cat]').forEach(b => b.addEventListener('click', () => loadCategory(b.dataset.cat, b)));
 
-        if (!q) return;
+        if (!q) {
+            /* 一进来先给点东西看，别空着 */
+            const firstChip = $('#catChips') ? $('#catChips').querySelector('[data-cat]') : null;
+            loadCategory('最新更新', firstChip);
+            return;
+        }
         SearchHistory.add(q);
 
         const seq = ++searchSeq;
