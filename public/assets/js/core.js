@@ -237,9 +237,12 @@
     /* ---------- 数据接口 ---------- */
     function mapVod(item, key) {
         const site = WT.SITES[key] || WT.ANIME_SITES[key] || {};
+        const name = item.vod_name || '未命名';
+        /* vod_id 缺失时用片名兜底，保证收藏 / 历史的主键永远非空且唯一 */
+        const rawId = String(item.vod_id || '').trim();
         return {
-            id: String(item.vod_id || ''),
-            name: item.vod_name || '未命名',
+            id: rawId || ('name:' + String(name).trim()),
+            name: name,
             pic: item.vod_pic || '',
             year: item.vod_year || '',
             note: item.vod_remarks || '',
