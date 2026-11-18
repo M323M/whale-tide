@@ -318,6 +318,31 @@
             return flat;
         },
 
+        /* 按分类拉列表：names 是分类名关键词数组，匹配源自己的分类表 */
+        async categoryList(keys, names, page = 1) {
+            const sites = (keys && keys.length ? keys : Object.keys(WT.SITES)).filter(k => siteOf(k));
+            const matchers = Array.isArray(names) ? names : [String(names || '')];
+
+            const buckets = await Promise.all(sites.map(async key => {
+                try {
+                    const cls = await classes(key);
+                    const hit = cls.find(c => matchers.some(n => String(c.type_name || '').includes(n)));
+                    if (!hit) return [];
+                    const site = siteOf(key);
+                    const url = site.api + '?ac=videolist&t=' + encodeURIComponent(hit.type_id) + '&pg=' + page;
+                    const data = await Net.json(url, { timeout: 6000 });
+                    const list = Array.isArray(data && data.list) ? data.list : [];
+                    return list.map(item => mapVod(item, key)).filter(x => x.id && x.name);
+                } catch (e) {
+                    return [];
+                }
+            }));
+
+            const flat = [];
+            buckets.forEach(b => flat.push(...b));
+            return flat;
+        },
+
         /* 探测哪几个源有番剧分类 */
         async animeSites(keys) {
             const sites = (keys && keys.length ? keys : Object.keys(WT.SITES)).filter(k => siteOf(k));

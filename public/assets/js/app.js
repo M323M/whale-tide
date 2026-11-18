@@ -1024,6 +1024,9 @@
             ? `<span class="chip-label">最近搜索</span>` + hist.slice(0, 8).map(t => `<button class="chip" data-hist="${esc(t)}">${esc(t)}</button>`).join('')
             : `<span class="chip-label">试试</span>` + fallbackWords.map(w => `<button class="chip" data-hot2="${esc(w)}">${esc(w)}</button>`).join('');
 
+        const catGroups = WT.CATEGORY_GROUPS[state.mode] || [];
+        const catChips = catGroups.map(c => `<button class="chip" data-cat="${esc(c.name)}">${esc(c.name)}</button>`).join('');
+
         view.innerHTML = `
         <section class="section" style="margin-top:22px">
             <form class="search-hero" id="pageForm">
@@ -1035,8 +1038,13 @@
                 ${chipsHtml}
             </div>
         </section>
+        ${q ? '' : `
+        <section class="section">
+            <div class="section-head"><h2>按分类找</h2><span class="sub">直接走片源自己的分类表，点开就能播</span></div>
+            <div class="chips" id="catChips" style="margin:0 0 14px">${catChips}</div>
+        </section>`}
         <section class="section" id="searchResultSection">
-            ${q ? skeletonGrid(12) : emptyState('汐在等你说一个' + (state.mode === 'anime' ? '番名' : '片名'), '上面输入名字，源会一起下水找；输入时会给你联想词。')}
+            ${q ? skeletonGrid(12) : ''}
         </section>`;
 
         attachSearchSuggest($('#searchPageInput'));
@@ -1054,6 +1062,38 @@
         $$('[data-hist]').forEach(b => b.addEventListener('click', () => {
             Router.go('#/search?q=' + encodeURIComponent(b.dataset.hist));
         }));
+
+        /* 按分类浏览 */
+        async function loadCategory(name, btn, page = 1) {
+            const group = catGroups.find(c => c.name === name);
+            if (!group) return;
+            const section = $('#searchResultSection');
+            $$('[data-cat]').forEach(b => b.classList.toggle('is-active', b === btn));
+            section.innerHTML = skeletonGrid(12);
+            try {
+                const list = await Data.categoryList(state.sites, group.match, page);
+                if (!list.length) {
+                    section.innerHTML = emptyState('「' + name + '」没拉到东西', '你启用的源里可能没有这个分类，去设置（右上齿轮）多勾几个源。');
+                    return;
+                }
+                registerCards(list);
+                section.innerHTML = `
+                    <div class="section-head">
+                        <h2>${esc(name)}</h2>
+                        <span class="sub">${list.length} 部 · 第 ${page} 批</span>
+                        <span class="spacer"></span>
+                        <button class="chip ghost" data-cat-more>${ICONS.refresh}换一批</button>
+                    </div>
+                    <div class="grid">${list.map((it, i) => card(it, i)).join('')}</div>`;
+                const more = section.querySelector('[data-cat-more]');
+                if (more) more.addEventListener('click', () => loadCategory(name, btn, page >= 5 ? 1 : page + 1));
+            } catch (e) {
+                section.innerHTML = emptyState('分类没拉上来', '接口超时了，再点一次试试。');
+            }
+        }
+
+        $$('[data-cat]').forEach(b => b.addEventListener('click', () => loadCategory(b.dataset.cat, b)));
+
         if (!q) return;
         SearchHistory.add(q);
 
