@@ -1,10 +1,10 @@
-﻿import http from 'node:http';
+import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
-// 婵＄偞娼欓幉锟犳儓?WhaleTide 闂佸搫鐗滈崜娆忥耿鐎涙﹫绱ｉ柛鏇ㄥ櫘濞?// 闂佹椿娼块崝宥囨兜閸洘鏅慨姗嗗墯闊?whale-tv 闂佺儵鏅╅崰鏍礊瀹ュ绠ョ憸鎴︺€? node ..\whale-build\_whale-src\preview-whale.mjs
-// 闂佽　鍋撴い鏍ㄧ☉閻︻噣鏌?mock=1 闂佺顑呭ú锕傚汲閻旂厧绠?/ ?style=chibi / ?autoopen=1 闂佺厧顨庢禍婊勬叏閳哄懎绠ラ柟鎯х－绾捐崵绱掑Δ濠傚幐缂佹梹娼欓锝夋偐閹绘帒鑰块梺?
+// 濠碉紕鍋炲娆撳箟閿熺姵鍎?WhaleTide 闂備礁鎼悧婊堝礈濞嗗骏鑰块悗娑欙公缁憋綁鏌涢弴銊ユ珮婵?// 闂備焦妞垮鍧楀礉瀹ュ洦鍏滈柛顐ｆ礃閺咁剚鎱ㄥ鍡楀闂?whale-tv 闂備胶鍎甸弲鈺呭窗閺嶎偆绀婄€广儱顦粻銉ф喐閹达负鈧? node ..\whale-build\_whale-src\preview-whale.mjs
+// 闂備浇銆€閸嬫挻銇勯弽銊р槈闁伙富鍣ｉ弻?mock=1 闂備胶顭堥鍛洪敃鍌氭辈闁绘梻鍘х粻?/ ?style=chibi / ?autoopen=1 闂備胶鍘ч〃搴㈢濠婂嫭鍙忛柍鍝勬噹缁犮儵鏌熼幆褏锛嶇痪鎹愬吹缁辨帒螖婵犲倸骞愮紓浣规⒐濞兼瑩顢氶敐澶嬪亹闁圭粯甯掗懓鍧楁⒑?
 const root = path.resolve(process.env.WT_ROOT || (process.cwd() + '/public'));
 const port = Number(process.env.PORT || 8231);
 const HASH = crypto.createHash('sha256').update('whale').digest('hex');
@@ -66,18 +66,18 @@ window.addEventListener('load', function () {
       var poster = img ? img.getAttribute('src') : '';
       var now = Date.now();
       var hist = [
-        { id: 'mock-0-1', site: 'tyyszy', siteName: '婵犮垹鐏堥弲婊堝礉閵娧勫皫闁告洦鍓涢悥?, name: '婵炴垶鎸搁ˇ顔剧礊?缂備焦顨忛崗娑氱博鐎电硶鍋?, pic: poster, total: 30, epIndex: 5, epName: '缂?06 闂?, time: now - 3600000, progress: 0.2 },
-        { id: 'mock-1-3', site: 'bfzy', siteName: '闂佸搫妫欓幐鎶剿夐幘鑸靛皫闁告洦鍓涢悥?, name: '闁瑰吋娼欏Λ鏃傜礊閹达妇宓?缂備焦顨忛崗娑氳姳閳哄啠鍋?, pic: poster, total: 36, epIndex: 11, epName: '缂?12 闂?, time: now - 86400000 * 2, progress: 0.3 },
-        { id: 'mock-2-5', site: 'ruyi', siteName: '婵犵鈧啿鈧綊宕滈幍顔藉皫闁告洦鍓涢悥?, name: '濠电偛鏈悷銈囩箔?2', pic: poster, total: 1, epIndex: 0, epName: '濠殿喗绻愮徊鎸庢櫠?, time: now - 86400000 * 5, progress: 0.9 }
+        { id: 'mock-0-1', site: 'tyyszy', siteName: '濠电姰鍨归悘鍫ュ疾濠婂牆绀夐柕濞у嫬鐨梺鍛婃处閸撴盯鎮?, name: '濠电偞鍨堕幐鎼佀囬鍓х?缂傚倷鐒﹂〃蹇涘礂濞戞氨鍗氶悗鐢电《閸?, pic: poster, total: 30, epIndex: 5, epName: '缂?06 闂?, time: now - 3600000, progress: 0.2 },
+        { id: 'mock-1-3', site: 'bfzy', siteName: '闂備礁鎼Λ娆撳箰閹跺壙澶愬箻閼搁潧鐨梺鍛婃处閸撴盯鎮?, name: '闂佺懓鍚嬪娆徫涢弮鍌滅闁硅揪濡囧畵?缂傚倷鐒﹂〃蹇涘礂濞戞俺濮抽柍鍝勫暊閸?, pic: poster, total: 36, epIndex: 11, epName: '缂?12 闂?, time: now - 86400000 * 2, progress: 0.3 },
+        { id: 'mock-2-5', site: 'ruyi', siteName: '濠电姷顣介埀顒€鍟块埀顒€缍婂畷婊堝箥椤旇棄鐨梺鍛婃处閸撴盯鎮?, name: '婵犵數鍋涢張顒勬偡閵堝洨绠?2', pic: poster, total: 1, epIndex: 0, epName: '婵犳鍠楃换鎰緤閹稿孩娅?, time: now - 86400000 * 5, progress: 0.9 }
       ];
       var m = 'video';
       try { var raw = localStorage.getItem('wt_mode'); if (raw) m = JSON.parse(raw) === 'anime' ? 'anime' : 'video'; } catch (e) {}
       localStorage.setItem('wt_history_' + m, JSON.stringify(hist));
       var favs = [
-        { id: 'mock-0-2', site: 'ruyi', siteName: '婵犵鈧啿鈧綊宕滈幍顔藉皫闁告洦鍓涢悥?, name: '濠电偟绻濋悞锕€顫濋鈧畷鐑藉箥椤旇棄鈧?2', pic: poster, year: '2021', type: '闂佸憡鏌ｉ崝瀣礊?, note: '闂佽棄鍟换鍌炲储?4K', score: '8.2', addedAt: now - 600000 },
-        { id: 'mock-1-4', site: 'bfzy', siteName: '闂佸搫妫欓幐鎶剿夐幘鑸靛皫闁告洦鍓涢悥?, name: '闁哄鏅滅粙鎴﹀吹椤曗偓閹啴宕熼锝囥€婃繛?闂佸搫鐗冮崑鎾剁磽娴ｅ摜澧曟い?, pic: poster, year: '2023', type: '闂佸憡鏌ｉ崝搴ㄥ极?, note: '闂佸搫娲ら悺銊╁蓟婵犲洦鍤?24 闂?, score: '9.6', addedAt: now - 3600000 },
-        { id: 'mock-2-0', site: 'ffzy', siteName: '闂傚倸鐗忛崑娑㈠吹閹烘洏浜归弶鍫亽濞?, name: '闂佸搫瀚崰鏍ь瀶椤栨粎鐭氶柤鎰佸灣妤?, pic: poster, year: '2019', type: '缂備礁顦伴崹鍨緞?, note: 'HD 婵°倕鍊硅摫缂?, score: '8.0', addedAt: now - 86400000 },
-        { id: 'mock-3-6', site: 'tyyszy', siteName: '婵犮垹鐏堥弲婊堝礉閵娧勫皫闁告洦鍓涢悥?, name: '婵犻潧鍊堕崕鎻掞耿閺夋５褰掓倻閻ｅ苯绗?, pic: poster, year: '2020', type: '闂佸憡鎸嗛崟顐㈠', note: '闂佺缈伴崹褰掑储濞戙垺鍋?, score: '9.1', addedAt: now - 86400000 * 3 }
+        { id: 'mock-0-2', site: 'ruyi', siteName: '濠电姷顣介埀顒€鍟块埀顒€缍婂畷婊堝箥椤旇棄鐨梺鍛婃处閸撴盯鎮?, name: '婵犵數鍋熺换婵嬫倿閿曗偓椤繈顢氶埀顒€鐣烽悜钘夌妞ゆ棁妫勯埀?2', pic: poster, year: '2021', type: '闂備礁鎲￠弻锝夊礉鐎ｎ剛绀?, note: '闂備浇妫勯崯顖滄崲閸岀偛鍌?4K', score: '8.2', addedAt: now - 600000 },
+        { id: 'mock-1-4', site: 'bfzy', siteName: '闂備礁鎼Λ娆撳箰閹跺壙澶愬箻閼搁潧鐨梺鍛婃处閸撴盯鎮?, name: '闂佸搫顦弲婊呯矙閹达箑鍚规い鏇楀亾闁诡垰鍟村畷鐔碱敃閿濆洢鈧﹥绻?闂備礁鎼悧鍐磻閹惧墎纾藉ù锝呮憸婢ф洘銇?, pic: poster, year: '2023', type: '闂備礁鎲￠弻锝夊礉鎼淬劌鏋?, note: '闂備礁鎼ú銈夋偤閵娾晛钃熷┑鐘叉处閸?24 闂?, score: '9.6', addedAt: now - 3600000 },
+        { id: 'mock-2-0', site: 'ffzy', siteName: '闂傚倸鍊搁悧蹇涘磻濞戙垹鍚归柟鐑樻磸娴滃綊寮堕崼顐航婵?, name: '闂備礁鎼€氼噣宕伴弽褜鐎舵い鏍ㄧ矌閻岸鏌ら幇浣哥仯濡?, pic: poster, year: '2019', type: '缂傚倷绀侀ˇ浼村垂閸偄绶?, note: 'HD 濠德板€曢崐纭呮懌缂?, score: '8.0', addedAt: now - 86400000 },
+        { id: 'mock-3-6', site: 'tyyszy', siteName: '濠电姰鍨归悘鍫ュ疾濠婂牆绀夐柕濞у嫬鐨梺鍛婃处閸撴盯鎮?, name: '濠电娀娼ч崐鍫曞磿閹绘帪鑰块柡澶嬶紩瑜版帗鍊婚柣锝呰嫰缁?, pic: poster, year: '2020', type: '闂備礁鎲￠幐鍡涘礋椤愩垹顥?, note: '闂備胶顢婄紙浼村垂瑜版帒鍌ㄦ繛鎴欏灪閸?, score: '9.1', addedAt: now - 86400000 * 3 }
       ];
       localStorage.setItem('wt_favs_' + m, JSON.stringify(favs));
       setTimeout(function () { location.reload(); }, 500);
@@ -95,16 +95,16 @@ window.addEventListener('load', function () {
         style: 'chibi', bg: 'neon', mode: 'anime',
         video: {
           sites: ['ruyi', 'dbzy'],
-          history: [{ id: 'v1', site: 'ruyi', name: '閻熸粍濯界划楣冿綖鐎ｎ剚濯奸柡澶庢硶缁?, epIndex: 1, total: 8, time: Date.now() }],
-          favorites: [{ id: 'vf1', site: 'ruyi', name: '閻熸粍濯界划楣冿綖鐎ｎ喖缁╅柟顖滃椤?, addedAt: Date.now() }]
+          history: [{ id: 'v1', site: 'ruyi', name: '闁荤喐绮嶆刊鐣屽垝妤ｅ喛缍栭悗锝庡墯婵ジ鏌℃径搴㈢《缂?, epIndex: 1, total: 8, time: Date.now() }],
+          favorites: [{ id: 'vf1', site: 'ruyi', name: '闁荤喐绮嶆刊鐣屽垝妤ｅ喛缍栭悗锝庡枛缂佲晠鏌熼婊冾暭妞?, addedAt: Date.now() }]
         },
         anime: {
           sites: ['bfzy', 'wwzy', 'bogusKey'],
           history: [
-            { id: 'a1', site: 'bfzy', name: '闂佷紮缍嗘禍婊勬櫠閻ｅ本濯奸柡澶庢硶缁?, epIndex: 3, total: 12, time: Date.now() },
-            { id: 'bad', site: 'notExist', name: '闂佺鍐闁哄棛鍠栭獮? }
+            { id: 'a1', site: 'bfzy', name: '闂備椒绱紞鍡樼濠婂嫭娅犻柣锝呮湰婵ジ鏌℃径搴㈢《缂?, epIndex: 3, total: 12, time: Date.now() },
+            { id: 'bad', site: 'notExist', name: '闂備胶顫嬮崘顏嗩唹闂佸搫妫涢崰鏍嵁? }
           ],
-          favorites: [{ id: 'af1', site: 'bfzy', name: '闂佷紮缍嗘禍婊勬櫠娴犲缁╅柟顖滃椤?, addedAt: Date.now() }]
+          favorites: [{ id: 'af1', site: 'bfzy', name: '闂備椒绱紞鍡樼濠婂嫭娅犲ù鐘差儏缂佲晠鏌熼婊冾暭妞?, addedAt: Date.now() }]
         }
       };
       var file = new File([JSON.stringify(cfg)], 'test.json', { type: 'application/json' });
@@ -141,12 +141,12 @@ window.addEventListener('load', function () {
       var hist = localStorage.getItem('wt_shist_anime') || localStorage.getItem('wt_shist_video');
       var m = (localStorage.getItem('wt_mode') || 'video').replace(/"/g, '');
       if (!hist) {
-        localStorage.setItem('wt_shist_' + m, JSON.stringify(['婵°倖绻嗛崑鎰閸愨晝鈻曢悗锝庝簻閻?, '闁哄鏅滅粙鎴﹀吹椤曗偓閹啴宕熼锝囥€婃繛?, '闂佹垝绶￠崜鐔煎焵椤戣儻鍏屾繛鍫熷灴閹崇偛鈻庨幒鎴狀伇闂?, '闂佸憡绮嶇敮妤€锕㈤幎钘夌倞闁绘劖娼欓悘?]));
+        localStorage.setItem('wt_shist_' + m, JSON.stringify(['濠德板€栫换鍡涘磻閹邦厼顕遍柛鎰ㄦ櫇閳绘洟鎮楅敐搴濈盎闁?, '闂佸搫顦弲婊呯矙閹达箑鍚规い鏇楀亾闁诡垰鍟村畷鐔碱敃閿濆洢鈧﹥绻?, '闂備焦鍨濈欢锟犲礈閻旂厧鐒垫い鎴ｅ劵閸忓本绻涢崼鐔风伌闁瑰磭鍋涢埢搴ㄥ箳閹寸媭浼囬梻?, '闂備礁鎲＄划宥囨暜濡も偓閿曘垽骞庨挊澶屽€為梺缁樺姈濞兼瑩鎮?]));
       }
       var input = document.getElementById('heroSearch') || document.getElementById('searchPageInput');
       if (!input) return;
       input.focus();
-      input.value = '婵°倖绻嗛崑鎰?;
+      input.value = '濠德板€栫换鍡涘磻閹邦厼顕?;
       input.dispatchEvent(new Event('input', { bubbles: true }));
     } catch (e) { document.title = 'SUG ERR ' + e.message; }
   }, 1500);
@@ -226,10 +226,37 @@ window.addEventListener('load', function () {
 });
 </script>`;
 
+const favTest = `<script>
+window.addEventListener('load', function () {
+  if (!/[?&]favtest=1/.test(location.search)) return;
+  var tries = 0;
+  (function waitStars() {
+    var stars = document.querySelectorAll('[data-fav]');
+    if (stars.length < 3) {
+      if (++tries > 60) { document.title = 'STARS=0 timeout'; return; }
+      setTimeout(waitStars, 250);
+      return;
+    }
+    stars[0].click();
+    setTimeout(function () {
+      stars[1].click();
+      setTimeout(function () {
+        stars[2].click();
+        setTimeout(function () {
+          var list = JSON.parse(localStorage.getItem('wt_favs_video') || '[]');
+          document.title = 'STARS=' + stars.length + ' SAVED=' + list.length +
+            ' NAMES=' + list.map(function (x) { return x.name; }).join('|');
+        }, 250);
+      }, 250);
+    }, 250);
+  })();
+});
+</script>`;
+
 http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split('?')[0]);
 
-  /* 闂佸搫鐗滈崜娆忥耿閺夋嚦鐔煎焺閸愩劎褰?Cloudflare 婵炲濯寸徊鍧楀箖婵犲洦鏅?proxy/<闂佺儵鏅╅崰妤呮偉椤ゆ被L> 闂佺儵鏅濋ˉ鎰崲濞戞瑦濮滄い鎺嗗亾鐟?*/
+  /* 闂備礁鎼悧婊堝礈濞嗗骏鑰块柡澶嬪殾閻旂厧鐒洪柛鎰╁妿瑜?Cloudflare 濠电偛顕刊瀵稿緤閸ф绠栧┑鐘叉处閺?proxy/<闂備胶鍎甸弲鈺呭窗濡ゅ懏鍋夋い銈嗚L> 闂備胶鍎甸弲婵嬎夐幇顔藉床婵炴垶鐟︽慨婊勩亜閹哄棗浜鹃悷?*/
   /* local proxy: /proxy/<encoded target>, rewrites m3u8 segment urls */
   if (p.startsWith('/proxy/')) {
     let target;
@@ -300,7 +327,7 @@ http.createServer((req, res) => {
     if (file.endsWith('.html')) {
       let html = buf.toString('utf8').replaceAll('{{PASSWORD}}', HASH);
       html = html.replace(/<head>/i, '<head>' + boot);
-      html = html.replace(/<\/body>/i, autoOpen + testImport + seedData + suggestTest + playTest + detailTest + drawerTest + catTest + '</body>');
+      html = html.replace(/<\/body>/i, autoOpen + testImport + seedData + suggestTest + playTest + detailTest + drawerTest + catTest + favTest + '</body>');
       body = Buffer.from(html, 'utf8');
     }
     res.writeHead(200, {
@@ -309,7 +336,8 @@ http.createServer((req, res) => {
     });
     res.end(body);
   });
-}).listen(port, '127.0.0.1', () => console.log('婵＄偞娼欓幉锟犳儓閸噦绱ｉ柛鏇ㄥ櫘濞兼棃鏌?http://127.0.0.1:' + port + '/?mock=1'));
+}).listen(port, '127.0.0.1', () => console.log('濠碉紕鍋炲娆撳箟閿熺姵鍎撻柛顐ゅ櫐缁憋綁鏌涢弴銊ユ珮婵炲吋妫冮弻?http://127.0.0.1:' + port + '/?mock=1'));
+
 
 
 

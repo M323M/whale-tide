@@ -501,10 +501,14 @@
                 for (let i = 0; i < limit; i++) {
                     const name = MOCK_NAMES[(i + start) % MOCK_NAMES.length] + ' ' + (i % 5 === 0 ? 'Ⅱ' : '');
                     out.push({
+                        id: 'db-mock-' + (start + i),
                         name: name.trim(),
                         pic: mockPoster(name.trim(), i + start),
                         score: (6.8 + ((i * 7) % 30) / 10).toFixed(1),
                         eps: i % 3 === 0 ? '更新至 ' + (8 + i) + ' 集' : '',
+                        note: i % 3 === 0 ? '更新至 ' + (8 + i) + ' 集' : '',
+                        site: 'douban',
+                        siteName: '豆瓣',
                         douban: true
                     });
                 }
@@ -516,13 +520,20 @@
             const list = Array.isArray(data && data.subjects) ? data.subjects : [];
             const out = [];
             for (const s of list) {
+                /* 豆瓣条目没有 vod_id，用 subject id 造一个稳定唯一 id，避免收藏互相覆盖 */
+                const sidMatch = String(s.url || '').match(/subject\/(\d+)/);
+                const sid = sidMatch ? sidMatch[1] : String(s.title || '').replace(/\s+/g, '');
                 out.push({
+                    id: 'db-' + sid,
                     name: s.title,
                     rawTitle: s.title,
                     pic: s.cover || '',
                     score: s.rate || '',
                     url: s.url || '',
                     eps: s.episodes_info || '',
+                    note: s.episodes_info || '',
+                    site: 'douban',
+                    siteName: '豆瓣',
                     douban: true
                 });
             }

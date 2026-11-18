@@ -447,8 +447,8 @@
     async function openDetail(item) {
         if (!item) return;
 
-        /* 豆瓣卡片只有标题/海报，没有片源 id —— 先按标题搜一次 */
-        if (item.douban || !item.site) {
+        /* 豆瓣卡片（或任何没有真实片源的条目）：先按标题搜一次 */
+        if (item.douban || !item.site || !WT.SITES[item.site]) {
             const q = item.name || '';
             if (!q) return;
             toast('正在找「' + q + '」…');
