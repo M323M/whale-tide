@@ -4,8 +4,9 @@
   "cache-control": {
     "/": "no-store",
     "/*.html": "no-store",
-    "/*.js": "public, max-age=86400",
-    "/*.css": "public, max-age=86400",
-    "/*.png": "public, max-age=604800"
+    "/assets/js/*": "public, max-age=0, must-revalidate",
+    "/assets/css/*": "public, max-age=0, must-revalidate",
+    "/assets/vendor/*": "public, max-age=0, must-revalidate",
+    "/assets/img/*": "public, max-age=604800"
   }
 }
